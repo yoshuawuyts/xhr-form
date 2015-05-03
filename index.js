@@ -9,22 +9,23 @@ module.exports = form
 
 form.on('created', function () {
   this.addEventListener('submit', this.listener = listener.bind(this))
-  function listener (e) {
-    e.stopPropagation()
-    e.preventDefault()
-
-    const els = e.target.elements || []
-    const res = {}
-
-    sliced(els).forEach(function (el) {
-      const name = el.name
-      if (name) res[name] = el.value
-    })
-
-    this.dispatchEvent(event('xhr', {data: res}))
-  }
 })
 
 form.on('detached', function () {
   this.removeEventListener('submit', this.listener)
 })
+
+function listener (e) {
+  e.stopPropagation()
+  e.preventDefault()
+
+  const els = e.target.elements || []
+  const res = {}
+
+  sliced(els).forEach(function (el) {
+    const name = el.name
+    if (name) res[name] = el.value
+  })
+
+  this.dispatchEvent(event('xhr', {data: res}))
+}

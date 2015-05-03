@@ -5,6 +5,9 @@
 [![Downloads][downloads-image]][downloads-url]
 [![js-standard-style][standard-image]][standard-url]
 
+Create an asynchronous form element with custom elements. wip, does not work as
+advertised yet.
+
 ## Installation
 ```bash
 $ npm install xhr-form
@@ -12,8 +15,39 @@ $ npm install xhr-form
 
 ## Usage
 ```js
+document.registerElement('xhr-form', require('../'))
 
+const form = domify(`
+  <form is="xhr-form" action="/api/yosh/wow">
+    <input type="text" name="something"></input>
+    <input type="submit">submit</input>
+  </form>
+`)
+
+document.body.appendChild(form)
+
+// as a callback
+form.addEventListener('xhr', function (e, submit) {
+  console.log(e.data)
+  submit(e.data, function (err, res) {
+    if (err) return console.error(err)
+    console.log('submission done', res)
+  })
+})
+
+// as a promise
+form.addEventListener('xhr', function (e, submit) {
+  console.log(e.data)
+  submit(e.data)
+    .then(res => console.log('submission done', res))
+    .catch(err => console.log(err))
+  })
+})
 ```
+
+## See Also
+- [whatwg-fetch](https://github.com/github/fetch) - A window.fetch JavaScript polyfill
+- [async-form-element](https://github.com/josh/async-form-element) - Progressively enhances a form element to submit via XHR
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)

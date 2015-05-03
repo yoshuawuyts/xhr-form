@@ -4,7 +4,7 @@
   "description": "xhr-form",
   "main": "index.js",
   "scripts": {
-    "start": "cd example && open http://localhost:9966 && wzrd index.js",
+    "start": "cd example && wzrd index.js | opnr | garnish",
     "test": "standard && NODE_ENV=test browserify test.js | tap-closer | smokestack --browser chrome",
     "test-cov": "standard && NODE_ENV=test browserify -t browserify-istanbul test.js | tap-closer | smokestack --browser chrome"
   },
@@ -22,7 +22,9 @@
     "browserify": "^9.0.8",
     "browserify-istanbul": "^0.2.1",
     "domify": "^1.3.3",
+    "garnish": "^2.1.3",
     "istanbul": "^0.3.13",
+    "opnr": "^1.0.1",
     "smokestack": "^3.2.2",
     "standard": "^3.5.0",
     "tap-closer": "^1.0.0",
